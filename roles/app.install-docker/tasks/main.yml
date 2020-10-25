@@ -1,0 +1,39 @@
+---
+- name: check docker installed
+  command: docker --version
+  register: docker_existed
+  ignore_errors: true
+
+- name: install docker
+  shell: curl https://releases.rancher.com/install-docker/18.09.2.sh | sh
+  when: docker_existed is failed
+
+- name: install docker-compose
+  command: curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose
+  when: docker_existed is failed
+
+- name: docker-compose permission
+  command: chmod +x /usr/local/bin/docker-compose
+  when: docker_existed is failed
+
+- name: Add process user to docker groups
+  user:
+    name: "{{ process_execution_user.name }}"
+    shell: /bin/bash
+    groups: docker
+    append: yes
+
+- name: check docker start
+  command: docker ps
+  register: docker_started
+  ignore_errors: true
+
+- name: reload Deamon docker
+  command: service docker start
+  when: docker_started is failed
+  
+- name: Ensure Docker is started and enabled at boot.
+  service:
+    name: docker
+    state: "{{ docker_service_state }}"
+    enabled: "{{ docker_service_enabled }}"

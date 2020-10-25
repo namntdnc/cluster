@@ -1,0 +1,9 @@
+---
+- name: disabled swap on worker node
+  command: swapoff -a
+
+- name: disable swap parmanently
+  replace:
+    path: /etc/fstab
+    regexp: '^/dev/mapper/centos-swap swap(.*)'
+    replace: '#/dev/mapper/centos-swap swap\1'

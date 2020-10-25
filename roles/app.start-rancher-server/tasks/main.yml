@@ -1,0 +1,8 @@
+---
+- name: check rancher container
+  shell: docker ps | grep rancher_server
+  register: result
+  failed_when: result.rc not in [0, 1]
+
+- name: Pull and run the Rancher server
+  command: docker run -d --name "rancher_server" --restart=unless-stopped -p 80:80 -p 443:443 --privileged rancher/rancher 

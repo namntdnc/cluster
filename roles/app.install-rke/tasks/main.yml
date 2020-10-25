@@ -1,0 +1,10 @@
+---
+- name: Create folder bin
+  file:
+    path: "{{user_home}}/bin/"
+    state: directory
+    mode: '0755'
+  ignore_errors: true
+
+- name: Bring rke to local bin
+  command: cp {{user_home}}/ansible-playbook/roles/app.install-rke/tasks/resource/rke_linux-amd64 {{user_home}}/bin/rke

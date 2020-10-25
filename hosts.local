@@ -1,0 +1,17 @@
+[master]
+192.168.30.2
+
+[node]
+192.168.30.3
+192.168.30.4
+
+[rancher]
+192.168.30.2
+
+[all:children]
+master
+node
+
+[local:children]
+master
+node

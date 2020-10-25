@@ -1,0 +1,13 @@
+---
+- name: check kubectl exist
+  command: kubectl
+  register: exist_kubectl
+  ignore_errors: True
+
+- name: setting kubectl repo
+  template: src=kubernetes.repo dest=/etc/yum.repos.d
+  when: exist_kubectl is failed
+
+- name: install kubectl
+  command: yum install -y kubectl
+  when: exist_kubectl is failed

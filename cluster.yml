@@ -1,0 +1,64 @@
+# If you intened to deploy Kubernetes in an air-gapped environment,
+# please consult the documentation on how to configure custom RKE images.
+nodes:
+- address: 192.168.30.2
+  port: "22"
+  internal_address: ""
+  role:
+  - controlplane
+  - etcd
+  hostname_override: master
+  user: vagrant
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+- address: 192.168.30.3
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: node1
+  user: vagrant
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+- address: 192.168.30.4
+  port: "22"
+  internal_address: ""
+  role:
+  - worker
+  hostname_override: node2
+  user: vagrant
+  docker_socket: /var/run/docker.sock
+  ssh_key: ""
+  ssh_key_path: ~/.ssh/id_rsa
+  ssh_cert: ""
+  ssh_cert_path: ""
+  labels: {}
+  taints: []
+services:
+  etcd:
+    image: quay.io/coreos/etcd:latest
+  kube-api:
+    image: rancher/k8s:v1.12.10-rancher1-1
+    service_cluster_ip_range: 10.43.0.0/16
+  kube-controller:
+    image: rancher/k8s:v1.12.10-rancher1-1
+    cluster_cidr: 10.42.0.0/16
+    service_cluster_ip_range: 10.43.0.0/16
+  scheduler:
+    image: rancher/k8s:v1.12.10-rancher1-1
+  kubelet:
+    image: rancher/k8s:v1.12.10-rancher1-1
+    cluster_domain: cluster.local
+    cluster_dns_server: 10.43.0.10
+  kubeproxy:
+    image: rancher/k8s:v1.12.10-rancher1-1
