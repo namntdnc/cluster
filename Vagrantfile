@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   server_configs.each do |server_config|
     config.vm.define "#{server_config['hostname']}" do |server|
       server.vm.hostname = server_config['hostname']
-      server.vm.box = "bento/centos-7.4"
+      server.vm.box = "bento/centos-8"
       server.vm.network :private_network, ip: server_config['ip']
       server.vm.network :forwarded_port, guest: 22, host: server_config['port'], id: "ssh"
       server.vm.provider "virtualbox" do |v|

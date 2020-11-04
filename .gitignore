@@ -1,2 +1,3 @@
 docker-images
-auto-deploy
+source
+.vagrant
