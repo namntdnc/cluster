@@ -4,10 +4,30 @@
   register: exist_kubectl
   ignore_errors: True
 
-- name: setting kubectl repo
-  template: src=kubernetes.repo dest=/etc/yum.repos.d
-  when: exist_kubectl is failed
+- name: install apt-transport-https
+  apt:
+    name: apt-transport-https
+
+- name: install gnupg2
+  apt:
+    name: gnupg2
+
+- name: install curl
+  apt:
+    name: curl
+
+- name: add apt-key
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg 
+    state: present
+    
+- name: add source list
+  command: echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
 
 - name: install kubectl
-  command: yum install -y kubectl
-  when: exist_kubectl is failed
+  apt: 
+    name: kubectl

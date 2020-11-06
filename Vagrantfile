@@ -3,28 +3,30 @@ Vagrant.configure("2") do |config|
   server_configs = [    			
     {"hostname" => "master", "ip" => "192.168.30.2", "port" => 2290, "memory_size" => "1024", "cpus" => 1, "execute_script" => true, "run" => "once"},  
     {"hostname" => "node1", "ip" => "192.168.30.3", "port" => 2291, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => ""},    
-    {"hostname" => "node2", "ip" => "192.168.30.4", "port" => 2292, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => ""}  
+    # {"hostname" => "node2", "ip" => "192.168.30.4", "port" => 2292, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => ""}  
   ]
 
   $script  = "
-    sudo yum install -y epel-release
-    sudo yum install -y --enablerepo=epel sshpass git
-    sudo yum install -y ansible
-    sudo yum install -y dos2unix
+    sudo apt-get -y update
+    sudo apt install -y software-properties-common
+    sudo apt-add-repository --yes --update ppa:ansible/ansible
+    sudo apt-get install -y sshpass
+    sudo apt-get install -y ansible
+    sudo apt-get install -y dos2unix
     cd ansible-playbook
     cp vagrant/insecure_private_key /home/vagrant/.ssh/id_rsa
     cp vagrant/ssh_config /home/vagrant/.ssh/config
     chmod -R og-rwx /home/vagrant/.ssh
     chown -R vagrant.vagrant /home/vagrant/.ssh
     sudo cp vagrant/ansible.cfg /etc/ansible/ansible.cfg
-    cd auto-deploy
+    cd source
     git config core.filemode false
   "
 
   server_configs.each do |server_config|
     config.vm.define "#{server_config['hostname']}" do |server|
       server.vm.hostname = server_config['hostname']
-      server.vm.box = "bento/centos-8"
+      server.vm.box = "bento/ubuntu-16.04"
       server.vm.network :private_network, ip: server_config['ip']
       server.vm.network :forwarded_port, guest: 22, host: server_config['port'], id: "ssh"
       server.vm.provider "virtualbox" do |v|

@@ -1,3 +1,4 @@
 docker-images
 source
 .vagrant
+cluster.rkestate
