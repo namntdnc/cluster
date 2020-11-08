@@ -20,6 +20,10 @@ NGINX
     ansible-playbook -i hosts.local -l local provison.yml
 
 ## Cluster Up
+    rke up --config cluster.yml
+    mkdir -p ~/.kube
+    cp ~/ansible-playbook/kube_config_cluster.yml ~/.kube/config
+
 
 ## Rancher-server
 > Sau khi cluster up thi rancher-server moi hoat dong

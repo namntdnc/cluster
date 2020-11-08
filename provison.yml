@@ -10,7 +10,7 @@
   become: true
   roles:
     - andrewrothstein.kubectl
-#     - app.install-rke
+    - app.install-rke
 
 # - hosts:
 #     - rancher

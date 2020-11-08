@@ -2,3 +2,4 @@ docker-images
 source/
 .vagrant
 cluster.rkestate
+kube_config_cluster.yml
