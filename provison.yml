@@ -11,9 +11,3 @@
   roles:
     - andrewrothstein.kubectl
     - app.install-rke
-
-# - hosts:
-#     - rancher
-#   become: true
-#   roles:
-#     - app.start-rancher-server

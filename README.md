@@ -7,9 +7,10 @@
 ## Prepare sourece
 - git clone https://github.com/namntdnc/auto-deploy.git ./source
 
-## Not config 
+## Not config  YET
 PHP 
 NGINX
+PHP-FPM USER, GROUP 
 
 ## Connection
 ### 1. Test connection
