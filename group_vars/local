@@ -5,3 +5,5 @@ docker_users:
 admin_user: { uid: 1000, name: vagrant, system: no }
 
 process_execution_user: { uid: 1000, name: vagrant, system: no }
+
+source_distributor_host: 192.168.30.2

@@ -1,9 +1,9 @@
 
 Vagrant.configure("2") do |config|
   server_configs = [    			
-    {"hostname" => "master", "ip" => "192.168.30.2", "port" => 2290, "memory_size" => "2048", "cpus" => 2, "execute_script" => true, "run" => "once"},  
-    {"hostname" => "node1", "ip" => "192.168.30.3", "port" => 2291, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => ""},    
-    {"hostname" => "node2", "ip" => "192.168.30.4", "port" => 2292, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => ""}  
+    {"hostname" => "master", "ip" => "192.168.30.2", "port" => 2290, "memory_size" => "2048", "cpus" => 2, "execute_script" => true, "run" => "once", "sync" => true},  
+    {"hostname" => "node1", "ip" => "192.168.30.3", "port" => 2291, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => "", "sync" => false},    
+    {"hostname" => "node2", "ip" => "192.168.30.4", "port" => 2292, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => "", "sync" => false},  
   ]
 
   $script  = "
@@ -34,7 +34,9 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         v.customize ["setextradata", :id, "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled", 0]
       end
-      server.vm.synced_folder ".", "/home/vagrant/ansible-playbook", owner: "vagrant", group: "vagrant", :create => true, :mount_options => ["fmode=777", "dmode=777"]
+      if server_config['sync'] then
+        server.vm.synced_folder ".", "/home/vagrant/ansible-playbook", owner: "vagrant", group: "vagrant", :create => true, :mount_options => ["fmode=777", "dmode=777"]
+      end
       if server_config['execute_script'] then
         server.vm.provision :shell, inline: $script, run: server_config['run'] 
       end

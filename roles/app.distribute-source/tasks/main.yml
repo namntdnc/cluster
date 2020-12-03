@@ -1,0 +1,10 @@
+---
+- name: synchronize source
+  synchronize:
+    src: "{{ _target_source }}"
+    dest: "/home/vagrant/"
+    rsync_opts:
+      - "--exclude=.git/"
+      - "--exclude=.gitignore"
+      - "--chown=vagrant:vagrant"
+  delegate_to: "{{ source_distributor_host }}"

@@ -1,0 +1,9 @@
+- name: distribute source
+  hosts:
+    - node
+  vars_prompt:
+    - name: "_target_source"
+      prompt: "Please input target source"
+      private: no
+  roles:
+    - { role: app.distribute-source }

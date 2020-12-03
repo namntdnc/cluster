@@ -28,3 +28,6 @@ PHP-FPM USER, GROUP
 
 ## Rancher-server
 > Sau khi cluster up thi rancher-server moi hoat dong
+
+## Synchronize source
+ansible-playbook apply-deployment.yml -i hosts.local --extra-vars "_target_source=..."
