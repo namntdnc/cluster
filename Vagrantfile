@@ -4,6 +4,7 @@ Vagrant.configure("2") do |config|
     {"hostname" => "master", "ip" => "192.168.30.2", "port" => 2290, "memory_size" => "2048", "cpus" => 2, "execute_script" => true, "run" => "once", "sync" => true},  
     {"hostname" => "node1", "ip" => "192.168.30.3", "port" => 2291, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => "", "sync" => false},    
     {"hostname" => "node2", "ip" => "192.168.30.4", "port" => 2292, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => "", "sync" => false},  
+    # {"hostname" => "node3", "ip" => "192.168.30.5", "port" => 2293, "memory_size" => "1024", "cpus" => 1, "execute_script" => false, "run" => "", "sync" => true},  
   ]
 
   $script  = "
