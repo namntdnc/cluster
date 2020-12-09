@@ -1,0 +1,7 @@
+---
+- hosts:
+    - master
+    - test
+  become: true
+  roles:
+    - app.setup-gui

@@ -15,10 +15,10 @@
     - app.install-nginx
     - app.nginx-conf
 
-- hosts:
-    - test
-  become: true
-  roles:
-    - app.install-php
-    - app.install-nginx
-    - app.nginx-conf
+# - hosts:
+#     - test
+#   become: true
+#   roles:
+#     - app.install-php
+#     - app.install-nginx
+#     - app.nginx-conf

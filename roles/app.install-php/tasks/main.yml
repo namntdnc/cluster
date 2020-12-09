@@ -36,3 +36,20 @@
   template:
     src: www.j2
     dest: /etc/php/7.4/fpm/pool.d/www.conf
+
+- name: Install low-level utilities
+  apt:
+    pkg:
+      - zip
+      - unzip
+
+- name: Download Composer
+  script: scripts/install_composer.sh
+
+- name: Move Composer globally
+  command: mv composer.phar /usr/local/bin/composer
+
+- name: Set permissions on Composer
+  file:
+    path: /usr/local/bin/composer
+    mode: "a+x"

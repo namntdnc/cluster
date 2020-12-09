@@ -7,3 +7,7 @@ admin_user: { uid: 1000, name: vagrant, system: no }
 process_execution_user: { uid: 1000, name: vagrant, system: no }
 
 source_distributor_host: 192.168.30.2
+
+user_home: /home/{{ process_execution_user.name }}
+
+source_dir: '{{ user_home }}/ansible-playbook/source/api'
