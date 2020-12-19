@@ -1,5 +1,5 @@
 docker-images
-source/
+source
 .vagrant
 cluster.rkestate
 kube_config_cluster.yml
